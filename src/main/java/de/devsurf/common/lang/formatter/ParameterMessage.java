@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.devsurf.common.lang.build.Builder;
+import de.devsurf.common.lang.encapsulation.Pair;
 
 
 /**
@@ -15,7 +16,7 @@ public class ParameterMessage implements Builder<String> {
 	private static final String NAME_VALUE_SEPARATOR = "=";
 	private static final String PARAMETER_SEPARATOR = ", ";
 	
-	private List<Pair> parameters;
+	private List<Pair<String, Object>> parameters;
 	private String parameterSeparator = PARAMETER_SEPARATOR;
 	private String nameValueSeparator = NAME_VALUE_SEPARATOR;
 
@@ -57,8 +58,8 @@ public class ParameterMessage implements Builder<String> {
 		}
 
 		StringBuilder sb = new StringBuilder(parameters.size() * 50);
-		for (Pair pair : parameters) {
-			sb.append(pair.name);
+		for (Pair<String, Object> pair : parameters) {
+			sb.append(pair.key);
 			sb.append(nameValueSeparator);
 			String strValue = NULL;
 			if (pair.value != null) {
@@ -71,20 +72,5 @@ public class ParameterMessage implements Builder<String> {
 		sb.setLength(sb.length() - parameterSeparator.length());
 
 		return sb.toString();
-	}
-	
-	private static final class Pair {
-		public String name;
-		public Object value;
-		
-		private Pair(String name, Object value) {
-			super();
-			this.name = name;
-			this.value = value;
-		}
-
-		public static Pair paired(String name, Object value) {
-			return new Pair(name, value);
-		}
 	}
 }
