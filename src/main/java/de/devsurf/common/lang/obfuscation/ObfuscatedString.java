@@ -119,6 +119,10 @@ public final class ObfuscatedString {
     public String toString() {
     	 return ToStringMessage.format(getClass()).addParameter("virtual", virtual).build();
     }
+    
+    public List<String> values() {
+    	return virtual;
+    }
 
     /** Returns the original string. */
     public String deobfuscate() {
